@@ -11,6 +11,20 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// IRLS_pois
+List IRLS_pois(const arma::colvec& y, const arma::mat& X, int max_iter, double tol);
+RcppExport SEXP _code815_IRLS_pois(SEXP ySEXP, SEXP XSEXP, SEXP max_iterSEXP, SEXP tolSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type X(XSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    rcpp_result_gen = Rcpp::wrap(IRLS_pois(y, X, max_iter, tol));
+    return rcpp_result_gen;
+END_RCPP
+}
 // loss_ridge
 double loss_ridge(const arma::vec& y, const arma::mat& A, const arma::vec& x, double lambda);
 RcppExport SEXP _code815_loss_ridge(SEXP ySEXP, SEXP ASEXP, SEXP xSEXP, SEXP lambdaSEXP) {
@@ -25,9 +39,49 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// gradient_descent_lsq
+List gradient_descent_lsq(const arma::colvec& y, const arma::mat& A, arma::colvec x0, double lambda, double gamma, double tol, int max_iter, bool printing);
+RcppExport SEXP _code815_gradient_descent_lsq(SEXP ySEXP, SEXP ASEXP, SEXP x0SEXP, SEXP lambdaSEXP, SEXP gammaSEXP, SEXP tolSEXP, SEXP max_iterSEXP, SEXP printingSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< double >::type gamma(gammaSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< bool >::type printing(printingSEXP);
+    rcpp_result_gen = Rcpp::wrap(gradient_descent_lsq(y, A, x0, lambda, gamma, tol, max_iter, printing));
+    return rcpp_result_gen;
+END_RCPP
+}
+// stochastic_gradient_descent_lsq
+List stochastic_gradient_descent_lsq(const arma::colvec& y, const arma::mat& A, arma::colvec x0, double lambda, int batch, double initial_step_size, double tol, int max_iter, bool printing);
+RcppExport SEXP _code815_stochastic_gradient_descent_lsq(SEXP ySEXP, SEXP ASEXP, SEXP x0SEXP, SEXP lambdaSEXP, SEXP batchSEXP, SEXP initial_step_sizeSEXP, SEXP tolSEXP, SEXP max_iterSEXP, SEXP printingSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::colvec& >::type y(ySEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type A(ASEXP);
+    Rcpp::traits::input_parameter< arma::colvec >::type x0(x0SEXP);
+    Rcpp::traits::input_parameter< double >::type lambda(lambdaSEXP);
+    Rcpp::traits::input_parameter< int >::type batch(batchSEXP);
+    Rcpp::traits::input_parameter< double >::type initial_step_size(initial_step_sizeSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< int >::type max_iter(max_iterSEXP);
+    Rcpp::traits::input_parameter< bool >::type printing(printingSEXP);
+    rcpp_result_gen = Rcpp::wrap(stochastic_gradient_descent_lsq(y, A, x0, lambda, batch, initial_step_size, tol, max_iter, printing));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_code815_IRLS_pois", (DL_FUNC) &_code815_IRLS_pois, 4},
     {"_code815_loss_ridge", (DL_FUNC) &_code815_loss_ridge, 4},
+    {"_code815_gradient_descent_lsq", (DL_FUNC) &_code815_gradient_descent_lsq, 8},
+    {"_code815_stochastic_gradient_descent_lsq", (DL_FUNC) &_code815_stochastic_gradient_descent_lsq, 9},
     {NULL, NULL, 0}
 };
 
